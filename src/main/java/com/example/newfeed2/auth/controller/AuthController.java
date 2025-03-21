@@ -3,6 +3,7 @@ package com.example.newfeed2.auth.controller;
 import com.example.newfeed2.auth.dto.request.AuthRequestDto;
 import com.example.newfeed2.auth.dto.response.AuthResponseDto;
 import com.example.newfeed2.auth.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/auth/signup")
-    public void signup(@RequestBody AuthRequestDto authRequestDto) {
+    public void signup(@Valid @RequestBody AuthRequestDto authRequestDto) {
         authService.signup(authRequestDto);
     }
 

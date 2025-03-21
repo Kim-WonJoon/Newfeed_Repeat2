@@ -62,14 +62,30 @@ public class UserService {
     @Transactional
     public void update(AuthUser authUser, UserUpdateRequestDto userUpdateRequestDto) {
         User user = userRepository.findById(authUser.getId()).orElseThrow(() -> new IllegalStateException("해당 사용자를 찾을 수 없음."));
-        user.update(userUpdateRequestDto.getPassword());
+
+        String password = user.getPassword();
+        String passwordCheck = userUpdateRequestDto.getPasswordCheck();
+        String newPassword = userUpdateRequestDto.getPassword();
+
+        if (!passwordEncoder.matches(passwordCheck, password)) {
+            throw new IllegalStateException("기존 비밀번호가 일치하지 않음.");
+        }
+        if (passwordEncoder.matches(newPassword, password)) {
+            throw new IllegalStateException("기존의 비밀번호와 동일한 비밀번호 사용불가.");
+        }
+        if (newPassword != null && !newPassword.isBlank()) {
+            newPassword = passwordEncoder.encode(newPassword);
+        } else {
+            newPassword = user.getPassword();
+        }
+        user.update(newPassword);
     }
 
     @Transactional
-    public void deleteById(Long userId) {
-        if (!userRepository.existsById(userId)) {
+    public void deleteById(AuthUser authUser) {
+        if (!userRepository.existsById(authUser.getId())) {
             throw new IllegalStateException("해당 사용자를 찾을 수 없음");
         }
-        userRepository.deleteById(userId);
+        userRepository.deleteById(authUser.getId());
     }
 }

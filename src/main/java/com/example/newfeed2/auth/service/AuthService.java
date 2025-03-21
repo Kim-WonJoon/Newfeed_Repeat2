@@ -38,7 +38,7 @@ public class AuthService {
 
         // 잘못된 비밀번호
         String password = authRequestDto.getPassword();
-        if (password.equals(user.getPassword())) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalStateException("잘못된 비밀번호입니다.");
         }
         // 이메일, 비밀번호가 일치한 경우
