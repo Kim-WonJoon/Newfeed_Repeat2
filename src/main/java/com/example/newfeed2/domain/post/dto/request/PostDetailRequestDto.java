@@ -7,5 +7,4 @@ public class PostDetailRequestDto {
 
     private String title;
     private String content;
-    // comment
 }

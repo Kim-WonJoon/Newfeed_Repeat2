@@ -1,6 +1,7 @@
 package com.example.newfeed2.domain.comment.dto.response;
 
 import com.example.newfeed2.common.BaseTimeEntity;
+import com.example.newfeed2.domain.comment.entity.Comment;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -18,5 +19,12 @@ public class CommentResponseDto extends BaseTimeEntity {
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public CommentResponseDto(Comment comment) {
+        this.id = comment.getId();
+        this.content = comment.getContent();
+        this.createdAt = comment.getCreatedAt();
+        this.updatedAt = comment.getUpdatedAt();
     }
 }

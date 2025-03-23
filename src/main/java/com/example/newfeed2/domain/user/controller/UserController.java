@@ -18,17 +18,6 @@ public class UserController {
 
     private final UserService userService;
 
-//    @PostMapping("/users")
-//    public ResponseEntity<UserSaveResponseDto> save(@RequestBody UserSaveRequestDto userSaveRequestDto) {
-//        return ResponseEntity.ok(userService.save(userSaveRequestDto));
-//    }
-//
-//    @PostMapping("/users")
-//    public ResponseEntity<UserSaveResponseDto> login(@RequestBody UserSaveRequestDto userSaveRequestDto) {
-//        User user = userService.login(userSaveRequestDto.getEmail(), userSaveRequestDto.getPassword());
-//        return ResponseEntity.ok(new UserSaveResponseDto(user.getId(), user.getEmail(), user.getPassword()));
-//
-
     @GetMapping("/users")
     public ResponseEntity<List<UserDetailResponseDto>> getAll() {
         return ResponseEntity.ok(userService.findAll());
